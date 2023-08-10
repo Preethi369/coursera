@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="checkOffApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shopping List App</title>
+        <script src="angular.min.js"></script>
+        <script src="app.js"></script>
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    flex-flow: column wrap;
+    width: 100vw;
+    padding: 5% 0;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+}
+
+.section-1{
+    height: 90vh;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.list{
+    width: 30%;
+    height: 600px;
+    display: flex;
+    padding: 20px;
+    flex-flow: column wrap;
+    border: 1px solid black;
+}
+
+label{
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+ul li{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Check Off Shopping List</h1>
+        </header>
+        <section class="section-1">
+            <div class="to-buy list" ng-controller="toBuyController as toBuy">
+                <label><b>To buy</b></label>
+                <ul class="items-list">
+                    <li ng-repeat="item in toBuy.items">
+                        <div>Buy {{item.quantity}} {{item.name}}</div>
+                        <button class="button" ng-click="toBuy.moveItem($index)">Bought</button>
+                    </li>
+                </ul>
+                <div class="message" ng-if="!toBuy.items.length">
+                    everything is bought
+                </div>
+            </div>
+            <div class="already-bought list" ng-controller="alreadyBoughtController as alreadyBought">
+                <label><b>Already bought</b></label>
+                <ul class="items-list">
+                    <li ng-repeat="item in alreadyBought.items">
+                        <div>Bought {{item.quantity}} {{item.name}}</div>
+                    </li>
+                </ul>
+                <div class="message" ng-hide="alreadyBought.items.length">
+                    nothing bought yet
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
